@@ -102,3 +102,9 @@ connection: {
 Isso criará o arquivo database.sqlite na mesma pasta do connection.ts
 
 *__dirname SEMPRE retornará o caminho exato do arquivo que ele está localizado*
+
+
+# github 
+
+git remote add origin https://github.com/slacerda85/iholderApp.git
+git push -u origin master

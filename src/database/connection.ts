@@ -4,7 +4,10 @@ import path from 'path';
 const connection = knex({
   client: 'pg',
   connection: {
-    filename: path.resolve(__dirname, 'database.sqlite'),
+    host : '127.0.0.1',
+    database: "iholder_app",
+    user: "postgres",
+    password: "0000"
   },
   useNullAsDefault: true,  
 });

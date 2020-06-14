@@ -3,9 +3,11 @@ import Knex from 'knex';
 export async function up(knex: Knex) { 
     return knex.schema.createTable('ativos', table => { 
       table.increments('id').primary(); 
-      table.string('ticker').notNullable();
-      table.string('isin').notNullable();
+      table.string('ticker').unique().notNullable();
+      table.string('isin').unique().notNullable();
       table.string('description').notNullable();
+      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.timestamp('updated_at').defaultTo(knex.fn.now())
     });
   }
   

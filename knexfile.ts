@@ -4,7 +4,10 @@ module.exports = { //não vai funcionar export default pois o knexfile ainda nao
   //aqui é só copiar s parametros dentro da connection.ts
   client: 'pg',
   connection: {
-    filename: path.resolve(__dirname, 'src', 'database', 'database.sqlite'),
+    host : '127.0.0.1',
+    database: "iholder_app",
+    user: "postgres",
+    password: "0000"
   },
   migrations: {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations')
