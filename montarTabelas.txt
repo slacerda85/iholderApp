@@ -1,0 +1,23 @@
+Para amanhã
+
+Formato das tabelas do aplicativo
+
+Tabela Usuário
+-Nome
+-Email
+-...
+
+Tabela Ativos 
+um array []
+ativo1: {
+ Titulo: 'titulo',
+ Movimentações: [
+  {
+   preço: 'preço',
+   qtd: 'qtd',
+   data: 'data'
+   }
+ ]
+}
+ 
+Tabela 
