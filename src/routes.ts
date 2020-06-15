@@ -9,9 +9,11 @@ const ativosController = new AtivosController();
 const transactionsController = new TransactionsController();
 
 routes.get('/ativos', ativosController.index);
-routes.get('/transactions', transactionsController.index);
-
 routes.post('/ativos', ativosController.create);
+routes.put('/ativos/:id', ativosController.update);
+routes.delete('/ativos/:id', ativosController.delete);
+
+routes.get('/transactions', transactionsController.index);
 routes.post('/transactions', transactionsController.create);
 
 export default routes;
