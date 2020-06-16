@@ -1,19 +1,19 @@
 import express from 'express';
 import knex from './database/connection';
 
-import AtivosController from './controllers/AtivosController';
-import TransactionsController from './controllers/TransactionsController';
+import AssetsController from './controllers/AssetsController';
+import OperationsController from './controllers/OperationsController';
 
 const routes = express.Router();
-const ativosController = new AtivosController();
-const transactionsController = new TransactionsController();
+const assetsController = new AssetsController();
+const operationsController = new OperationsController();
 
-routes.get('/ativos', ativosController.index);
-routes.post('/ativos', ativosController.create);
-routes.put('/ativos/:id', ativosController.update);
-routes.delete('/ativos/:id', ativosController.delete);
+routes.get('/assets', assetsController.index);
+routes.post('/assets', assetsController.create);
+routes.put('/assets/:id', assetsController.update);
+routes.delete('/assets/:id', assetsController.delete);
 
-routes.get('/transactions', transactionsController.index);
-routes.post('/transactions', transactionsController.create);
+routes.get('/operations', operationsController.index);
+routes.post('/operations', operationsController.create);
 
 export default routes;

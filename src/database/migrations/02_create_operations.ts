@@ -3,14 +3,16 @@ import Knex from 'knex';
 export async function up(knex: Knex) { 
     return knex.schema.createTable('operations', table => { 
       table.increments('id').primary(); 
-      table.integer('ativo_id')
+      table.integer('asset_id')
       .notNullable()
       .references('id')
-      .inTable('ativos');
+      .inTable('assets');
       table.float('price').notNullable();
       table.integer('qtd').notNullable();
       table.string('date').notNullable();
       table.float('fees').notNullable();
+      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.timestamp('updated_at').defaultTo(knex.fn.now());
     });
   }
   

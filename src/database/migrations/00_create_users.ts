@@ -6,6 +6,8 @@ export async function up(knex: Knex) { //Agora que o parametro knex foi definido
     table.increments('id').primary(); // Primeiro campo é o id com auto increment
     table.string('name').notNullable();
     table.string('email').notNullable();
+    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
   });
 }
 
