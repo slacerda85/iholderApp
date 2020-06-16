@@ -1,7 +1,7 @@
 import path from 'path';
 
 module.exports = { //não vai funcionar export default pois o knexfile ainda nao da suporte
-  //aqui é só copiar s parametros dentro da connection.ts
+  //aqui é só copiar os parametros dentro da connection.ts
   client: 'pg',
   connection: {
     host : '127.0.0.1',
