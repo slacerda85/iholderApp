@@ -4,12 +4,12 @@ import knex from '../database/connection';
 //Os nomes padrão para funções de controllers são:
 //create, show, index, update, delete.
 
-class AtivosController {
+class AssetsController {
 
   async create(request: Request, response: Response) {
     const { ticker, description, isin } = request.body;
 
-    await knex('ativos').insert({
+    await knex('assets').insert({
       ticker,
       description,
       isin
@@ -19,40 +19,36 @@ class AtivosController {
   }
 
   async index(request: Request, response: Response) {
-    const ativosList = await knex('ativos').select('*');
+    const assetsList = await knex('assets').select('*');
 
-    return response.json(ativosList);
+    return response.json(assetsList);
   }
 
   async update(request: Request, response: Response) {
     const { ticker, description, isin } = request.body;
     const { id } = request.params;
 
-    await knex('ativos')
-    .update({
-      ticker,
-      description,
-      isin
-    })
-    .where({ id });
+    await knex('assets')
+      .update({
+        ticker,
+        description,
+        isin
+      })
+      .where({ id });
 
     return response.send();
   }
 
   async delete(request: Request, response: Response) {
-    try {
-      const { id } = request.params;
+    const { id } = request.params;
 
-    await knex('ativos')
-    .where({ id })
-    .del();
+    await knex('assets')
+      .where({ id })
+      .del();
 
     return response.send();
-    } catch (error) {
-      console.log(error);
-    }
   }
 
 }
 
-export default AtivosController;
+export default AssetsController;

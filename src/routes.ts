@@ -1,5 +1,4 @@
 import express from 'express';
-import knex from './database/connection';
 
 import AssetsController from './controllers/AssetsController';
 import OperationsController from './controllers/OperationsController';
