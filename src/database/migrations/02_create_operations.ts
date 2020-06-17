@@ -3,9 +3,9 @@ import Knex from 'knex';
 export async function up(knex: Knex) { 
     return knex.schema.createTable('operations', table => { 
       table.increments('id').primary(); 
-      table.integer('asset_id')
+      table.string('asset_ticker')
       .notNullable()
-      .references('id')
+      .references('ticker')
       .inTable('assets');
       table.float('price').notNullable();
       table.integer('qtd').notNullable();

@@ -24,26 +24,40 @@ class AssetsController {
     return response.json(assetsList);
   }
 
+  async show(request: Request, response: Response) {
+    const { ticker } = request.params;
+
+    const asset = await knex('assets').where(ticker);
+
+    return response.json(asset);
+  }
+
   async update(request: Request, response: Response) {
-    const { ticker, description, isin } = request.body;
-    const { id } = request.params;
+    const { 
+      description,
+      isin,
+      average_price,
+      qtd
+    } = request.body;
+    const { ticker } = request.params;
 
     await knex('assets')
-      .update({
-        ticker,
+      .update({        
         description,
-        isin
+        isin,
+        average_price,
+        qtd
       })
-      .where({ id });
+      .where({ ticker });
 
     return response.send();
   }
 
   async delete(request: Request, response: Response) {
-    const { id } = request.params;
+    const { ticker } = request.params;
 
     await knex('assets')
-      .where({ id })
+      .where({ ticker })
       .del();
 
     return response.send();
