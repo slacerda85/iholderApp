@@ -1,31 +1,41 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import knex from '../database/connection';
 
 class OperationsController {
-  async create(request: Request, response: Response) {
-    const {
-      asset_id,
-      price,
-      qtd,
-      date,
-      fees,      
-    } = request.body;
+  async create(request: Request, response: Response, next: NextFunction) {
+    try {
+      const {
+        asset_ticker,
+        price,
+        qtd,
+        date,
+        fees,      
+      } = request.body;
+  
+      await knex('operations').insert({
+        asset_ticker,
+        price,
+        qtd,
+        date,
+        fees,      
+      });
+  
+      return response.send();
 
-    await knex('operations').insert({
-      asset_id,
-      price,
-      qtd,
-      date,
-      fees,      
-    });
-
-    return response.json({ success: true });
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async index(request: Request, response:Response) {
-    const operations = await knex('operations').select('*');
+  async index(request: Request, response:Response, next: NextFunction) {
+    try {
+      const operations = await knex('operations').select('*');
 
-    return response.json(operations);
+      return response.json(operations);
+
+    } catch (error) {
+      next(error);
+    }
   }
 
   async update(request: Request, response: Response) {

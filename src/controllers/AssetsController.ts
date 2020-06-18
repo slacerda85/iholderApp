@@ -73,7 +73,7 @@ class AssetsController {
     const { ticker } = request.params;
 
     await knex('assets')
-      .where({ ticker })
+      .where({ ticker: ticker.toUpperCase() })
       .del();
 
     return response.send();
