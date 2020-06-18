@@ -36,7 +36,9 @@ class AssetsController {
   async show(request: Request, response: Response, next: NextFunction) {   
     try {
       const { ticker } = request.params;
-      const asset = await knex('assets').where({ ticker });
+      
+      const asset = await knex('assets')
+      .where({ ticker: ticker.toUpperCase() });
 
     return response.json(asset);
     } catch (error) {
@@ -50,14 +52,16 @@ class AssetsController {
         average_price,
         qtd
       } = request.body;
-      const { ticker } = request.params;
+      let { ticker } = request.params;
+      
+      
   
       await knex('assets')
         .update({ 
           average_price,
           qtd
         })
-        .where({ ticker });
+        .where({ ticker: ticker.toUpperCase() });
   
       return response.send();
     } catch (error) {
