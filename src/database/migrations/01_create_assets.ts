@@ -5,8 +5,8 @@ export async function up(knex: Knex) {
       table.string('ticker').unique().notNullable().primary();
       table.string('isin').unique().notNullable();
       table.string('description').notNullable();
-      table.float('average_price').defaultTo(0);
-      table.integer('qtd').defaultTo(0);
+      table.float('average_price');
+      table.integer('qtd');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     });

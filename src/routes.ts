@@ -9,8 +9,9 @@ const operationsController = new OperationsController();
 
 routes.get('/assets', assetsController.index);
 routes.post('/assets', assetsController.create);
-routes.put('/assets/:id', assetsController.update);
-routes.delete('/assets/:id', assetsController.delete);
+routes.get('/assets/:ticker', assetsController.show);
+routes.put('/assets/:ticker', assetsController.update);
+routes.delete('/assets/:ticker', assetsController.delete);
 
 routes.get('/operations', operationsController.index);
 routes.post('/operations', operationsController.create);
