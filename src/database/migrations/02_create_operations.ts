@@ -11,6 +11,7 @@ export async function up(knex: Knex) {
       table.integer('qtd').notNullable();
       table.string('date').notNullable();
       table.float('fees').notNullable();
+      table.float('total_operation_cost').notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     });

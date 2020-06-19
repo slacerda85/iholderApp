@@ -17,7 +17,8 @@ class OperationsController {
         price,
         qtd,
         date,
-        fees,      
+        fees,
+        total_operation_cost: (qtd * price) + fees
       });
   
       return response.send();
@@ -69,6 +70,7 @@ class OperationsController {
         qtd,
         date,
         fees,
+        total_operation_cost: (qtd * price) + fees,
         updated_at: knex.fn.now()
       })
       .where({ id });
