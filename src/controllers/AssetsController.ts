@@ -59,7 +59,8 @@ class AssetsController {
       await knex('assets')
         .update({ 
           average_price,
-          qtd
+          qtd,
+          updated_at: knex.fn.now()
         })
         .where({ ticker: ticker.toUpperCase() });
   
@@ -69,14 +70,19 @@ class AssetsController {
     }
   }
 
-  async delete(request: Request, response: Response) {
-    const { ticker } = request.params;
+  async delete(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { ticker } = request.params;
 
     await knex('assets')
       .where({ ticker: ticker.toUpperCase() })
       .del();
 
     return response.send();
+    
+    } catch (error) {
+      next(error);
+    }
   }
 
 }

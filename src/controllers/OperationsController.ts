@@ -38,39 +38,62 @@ class OperationsController {
     }
   }
 
-  async update(request: Request, response: Response) {
-    const {
-      asset_id,
-      price,
-      qtd,
-      date,
-      fees,
-    } = request.body;
-    const { id } = request.params;
+  async show(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params;
+      
+      const operation = await knex('assets')
+      .where({ id });
 
-    await knex('operations')
-    .update({
-      asset_id,
-      price,
-      qtd,
-      date,
-      fees,
-    })
-    .where({ id });
-
-    return response.send();
+    return response.json(operation);
+    } catch (error) {
+      next(error);
+    } 
   }
 
-  async delete(request: Request, response: Response) {
-    const { id } = request.params;
+  async update(request: Request, response: Response, next: NextFunction) {
+    try {
+      const {
+        asset_ticker,
+        price,
+        qtd,
+        date,
+        fees,
+      } = request.body;
+      const { id } = request.params;
+  
+      await knex('operations')
+      .update({
+        asset_ticker,
+        price,
+        qtd,
+        date,
+        fees,
+        updated_at: knex.fn.now()
+      })
+      .where({ id });
+  
+      return response.send();
+
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params;
 
     await knex('operations')
     .where({ id })
     .del();
 
     return response.send();
-  }
-  
+
+    } catch (error) {
+      next(error);
+    }
+  }  
 }
 
 export default OperationsController;
