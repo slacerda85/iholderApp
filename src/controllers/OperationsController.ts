@@ -40,10 +40,10 @@ class OperationsController {
 
   async show(request: Request, response: Response, next: NextFunction) {
     try {
-      const { id } = request.params;
+      const { ticker } = request.params;
       
       const operation = await knex('operations')
-      .where({ id });
+      .where({ asset_ticker: ticker.toUpperCase() });
 
     return response.json(operation);
     } catch (error) {

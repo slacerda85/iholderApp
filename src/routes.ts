@@ -15,7 +15,8 @@ routes.delete('/assets/:ticker', assetsController.delete);
 
 routes.get('/operations', operationsController.index);
 routes.post('/operations', operationsController.create);
-routes.get('/operations/:id', operationsController.show);
+routes.get('/operations/:ticker', operationsController.show);
 routes.put('/operations/:id', operationsController.update);
+routes.delete('/operations/:id', operationsController.delete);
 
 export default routes;
