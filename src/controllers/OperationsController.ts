@@ -18,7 +18,7 @@ class OperationsController {
         qtd,
         date,
         fees,
-        total_operation_cost: (qtd * price) + fees
+        total_operation_cost: (qtd * price) + fees,
       });
   
       return response.send();
