@@ -42,7 +42,7 @@ class OperationsController {
     try {
       const { id } = request.params;
       
-      const operation = await knex('assets')
+      const operation = await knex('operations')
       .where({ id });
 
     return response.json(operation);
