@@ -2,11 +2,9 @@ import knex from 'knex';
 import path from 'path';
 
 const connection = knex({
-  client: 'pg',
+  client: 'sqlite3',
   connection: {
-    database: "iholderapp",
-    user: "postgres",
-    password: "0"
+    filename: path.resolve(__dirname, 'database.sqlite')
   },
   useNullAsDefault: true,  
 });
