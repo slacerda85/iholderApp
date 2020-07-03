@@ -11,6 +11,9 @@ module.exports = { //não vai funcionar export default pois o knexfile ainda nao
   migrations: {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations')
   },
+  seeds: {
+    directory: path.resolve(__dirname, 'src', 'database', 'seeds')
+  },
   useNullAsDefault: true,
 }
 

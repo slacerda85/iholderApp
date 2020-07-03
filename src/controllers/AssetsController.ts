@@ -9,10 +9,11 @@ class AssetsController {
 
   async create(request: Request, response: Response, next: NextFunction) {
     try {
-      const { ticker, description, isin } = request.body;
+      const { ticker, category, description, isin } = request.body;
 
     await knex('assets').insert({
       ticker,
+      category,
       description,
       isin
     });
