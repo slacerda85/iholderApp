@@ -4,7 +4,7 @@ export async function up(knex: Knex) {
     return knex.schema.createTable('assets', table => { 
       table.string('ticker').notNullable().primary();
       table.string('category').notNullable();
-      table.string('isin').unique().notNullable();
+      table.string('isin').notNullable();
       table.string('description').notNullable();
     });
   }
