@@ -15,10 +15,10 @@ routes.get('/assets/:ticker', assetsController.show);
 routes.put('/assets/:ticker', assetsController.update);
 routes.delete('/assets/:ticker', assetsController.delete);
 
-routes.get('/balance', portfolioController.index);
-routes.post('/balance', portfolioController.create);
-routes.get('/balance/:asset_ticker', portfolioController.show);
-routes.put('/balance/:asset_ticker', portfolioController.update);
+routes.get('/portfolio', portfolioController.index);
+routes.post('/portfolio', portfolioController.create);
+routes.get('/portfolio/:asset_ticker', portfolioController.show);
+routes.put('/portfolio/:asset_ticker', portfolioController.update);
 
 routes.get('/operations', operationsController.index);
 routes.post('/operations', operationsController.create);
