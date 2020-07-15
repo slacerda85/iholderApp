@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import knex from '../database/connection';
 
-class BalanceController {
+class PortfolioController {
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const {
         asset_ticker
       } = request.body;
 
-      await knex('balance').insert({
+      await knex('portfolio').insert({
         asset_ticker
       });
 
@@ -20,27 +20,43 @@ class BalanceController {
   }
 
   async index(request: Request, response: Response, next: NextFunction) {
+    try {
+      const portfolio = await knex('portfolio').select('*');
 
+      return response.json(portfolio);
+
+    } catch (error) {
+      next(error);
+    }
   }
 
   async show(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { asset_ticker } = request.params;
+      
+      const asset = await knex('portfolio')
+      .where({ asset_ticker: asset_ticker.toUpperCase() });
 
-  }
+    return response.json(asset);
+    } catch (error) {
+      next(error);
+    } 
+  }  
 
   async update(request: Request, response: Response, next: NextFunction) {
     try {
       const {
-        asset_ticker,
         qtd,
         avg_price
       } = request.body;
+      const { asset_ticker } = request.params;      
 
-      await knex('balance').update({
-        qtd,
-        avg_price,
+      await knex('portfolio').update({
+        qtd: qtd,
+        avg_price: avg_price,
         updated_at: knex.fn.now()
       })
-        .where({ asset_ticker });
+        .where({ asset_ticker: asset_ticker.toUpperCase() });
 
       return response.send();
 
@@ -55,4 +71,4 @@ class BalanceController {
 
 }
 
-export default BalanceController;
+export default PortfolioController;

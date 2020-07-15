@@ -11,8 +11,10 @@ class OperationsController {
         date,
         fees,      
       } = request.body;
+
+      const trx = await knex.transaction();
   
-      await knex('operations').insert({
+      await trx('operations').insert({
         asset_ticker,
         price,
         qtd,
@@ -20,6 +22,19 @@ class OperationsController {
         fees,
         total_operation_cost: (qtd * price) + fees,
       });
+
+      const totalOperations = await trx('operations')
+      .where({asset_ticker});
+      const sumQtd = totalOperations.reduce((acc, curr) => acc + curr.qtd, 0);
+      const sumValue = totalOperations.reduce((acc, curr) => acc + curr.total_operation_cost, 0);
+
+      await trx('portfolio').update({
+        qtd: sumQtd,
+        avg_price: sumValue,
+        updated_at: knex.fn.now()
+      }).where({ asset_ticker });
+
+      await trx.commit();
   
       return response.send();
 

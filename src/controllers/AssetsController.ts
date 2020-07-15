@@ -48,27 +48,7 @@ class AssetsController {
   }
 
   async update(request: Request, response: Response, next: NextFunction) {
-    try {
-      const { 
-        average_price,
-        qtd
-      } = request.body;
-      let { ticker } = request.params;
-      
-      
-  
-      await knex('assets')
-        .update({ 
-          average_price,
-          qtd,
-          updated_at: knex.fn.now()
-        })
-        .where({ ticker: ticker.toUpperCase() });
-  
-      return response.send();
-    } catch (error) {
-      next(error);
-    }
+    
   }
 
   async delete(request: Request, response: Response, next: NextFunction) {

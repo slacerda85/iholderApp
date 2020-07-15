@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function up(knex: Knex) {
-    return knex.schema.createTable('balance', table => {
+    return knex.schema.createTable('portfolio', table => {
         table.string('asset_ticker')
         .notNullable()
         .references('ticker')
