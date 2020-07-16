@@ -18,9 +18,6 @@ async function formatPortfolio(item: Portfolio) {
     const lastPrice = await getLastPrice(item.asset_ticker);
     const percent = ((item.qtd * lastPrice - item.avg_price) / item.avg_price * 100);
 
-    const teste = await Promise.all(description);
-    console.log(description);
-
     return {
       asset_ticker: item.asset_ticker,
       description: description,

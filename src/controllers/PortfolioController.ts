@@ -55,10 +55,12 @@ class PortfolioController {
     try {
       const { asset_ticker } = request.params;
 
-      const asset = await knex('portfolio')
+      const asset: Portfolio[] = await knex('portfolio')
         .where({ asset_ticker: asset_ticker.toUpperCase() });
 
-      return response.json(asset);
+      const result = await formatPortfolio(asset[0]);
+
+      return response.json(result);
     } catch (error) {
       next(error);
     }
