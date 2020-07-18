@@ -44,7 +44,15 @@ class PortfolioController {
         );
       }));
 
-      return response.json(result);
+      
+
+      return response.json(result.sort(function(a, b){
+        var x = a.asset_ticker.toLowerCase();
+        var y = b.asset_ticker.toLowerCase();
+        if (x < y) {return -1;}
+        if (x > y) {return 1;}
+        return 0;
+      }));
 
     } catch (error) {
       next(error);

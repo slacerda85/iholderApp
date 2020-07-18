@@ -26,9 +26,23 @@ class NetWorthController {
         );
       }));
       //PENDENTE - Somar o qtd e o preço atual de cada ativo, e criar o networth
-      console.log(result);
+      const summedResult = result.map(item => {
+        return ({
+          total: item.qtd * item.lastPrice,
+          avgPrice: item.avg_price});
+      })
 
-      return response.json(result);
+      const total = summedResult.reduce((acc, curr) => acc + curr.total, 0);
+      const totalAvgPrice = summedResult.reduce((acc, curr) => acc + curr.avgPrice, 0);
+
+      const netWorth = {
+        lastValue: total,
+        avgPrice: totalAvgPrice,
+        profit: total - totalAvgPrice,
+        percent: (total - totalAvgPrice) / totalAvgPrice * 100
+      }
+
+      return response.json(netWorth);
 
     } catch (error) {
       next(error);

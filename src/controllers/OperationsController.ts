@@ -16,11 +16,13 @@ class OperationsController {
   
       await trx('operations').insert({
         asset_ticker,
-        price,
-        qtd,
+        price: Number(price.split(',').join('.')),
+        qtd: Number(qtd.split(',').join('.')),
         date,
-        fees,
-        total_operation_cost: (qtd * price) + fees,
+        fees: Number(fees.split(',').join('.')),
+        total_operation_cost: (Number(qtd.split(',').join('.')) * 
+        Number(price.split(',').join('.')) + 
+        Number(fees.split(',').join('.'))),
       });
 
       const totalOperations = await trx('operations')
@@ -31,7 +33,7 @@ class OperationsController {
       await trx('portfolio').update({
         qtd: sumQtd,
         avg_price: sumValue,
-        updated_at: knex.fn.now()
+        updated_at: trx.fn.now()
       }).where({ asset_ticker });
 
       await trx.commit();
@@ -69,26 +71,45 @@ class OperationsController {
 
   async update(request: Request, response: Response, next: NextFunction) {
     try {
-      const {
-        asset_ticker,
+      const {        
         price,
         qtd,
         date,
         fees,
       } = request.body;
       const { id } = request.params;
+
+      const trx = await knex.transaction();
   
-      await knex('operations')
+      await trx('operations')
       .update({
-        asset_ticker,
-        price,
-        qtd,
+        price: Number(price.split(',').join('.')),
+        qtd: Number(qtd.split(',').join('.')),
         date,
-        fees,
-        total_operation_cost: (qtd * price) + fees,
+        fees: Number(fees.split(',').join('.')),
+        total_operation_cost: (Number(qtd.split(',').join('.')) * 
+        Number(price.split(',').join('.')) + 
+        Number(fees.split(',').join('.'))),
         updated_at: knex.fn.now()
       })
       .where({ id });
+
+      const asset_ticker = (await trx('operations')
+      .select('asset_ticker')
+      .where({ id }))[0].asset_ticker;      
+
+      const totalOperations = await trx('operations')
+      .where({asset_ticker});
+      const sumQtd = totalOperations.reduce((acc, curr) => acc + curr.qtd, 0);
+      const sumValue = totalOperations.reduce((acc, curr) => acc + curr.total_operation_cost, 0);
+
+      await trx('portfolio').update({
+        qtd: sumQtd,
+        avg_price: sumValue,
+        updated_at: knex.fn.now()
+      }).where({ asset_ticker });
+
+      await trx.commit();
   
       return response.send();
 
