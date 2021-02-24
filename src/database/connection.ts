@@ -1,16 +1,16 @@
-import knex from 'knex';
-import path from 'path';
+import knex from 'knex'
+import path from 'path'
 
 const connection = knex({
   client: 'pg',
   connection: {
-    database: "iholderapp",
-    user: "postgres",
-    password: "0"
+    database: 'iholderapp',
+    user: 'postgres',
+    password: ''
   },
-  useNullAsDefault: true,  
-});
+  useNullAsDefault: true
+})
 
-export default connection;
+export default connection
 
 //Migrations = Histórico do banco de dados
